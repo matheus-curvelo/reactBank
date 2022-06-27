@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Switch
 } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
@@ -16,11 +17,10 @@ class App extends Component {
     this.state = { 
       inputName: 'Matheus', name: '',
       inputAge: '27', age: '',
-
       gender: '',
       genders: [{key: 1, genero: 'Homem'}, {key: 2, genero: 'Mulher'}],
-
       estado: 30,
+      statusEstudante: true
      }
 
      this.cadastrar = this.cadastrar.bind(this)
@@ -92,8 +92,15 @@ class App extends Component {
             <Text style={styles.sliderText} > {this.state.estado.toFixed(0)} </Text>
           </View>
 
-          {/*<Text>Limite</Text>
-          <Text>Estudante</Text> */}
+          <View style={styles.switchArea}>
+            <Switch
+            value={this.state.statusEstudante}
+            onValueChange={(valorSwitch) => this.setState({statusEstudante: valorSwitch})}
+            />
+            <Text style={styles.switchText}>
+              Estudante
+            </Text>
+          </View>
 
           <TouchableOpacity style={styles.buttonArea} onPress={this.cadastrar}>
             <Text style={styles.buttonText} >Cadastrar</Text>
@@ -177,7 +184,21 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 20,
     textAlign: 'center'
-  }
+  },
+
+  switchArea: {
+    alignItems:'center',
+    flexDirection:'row'
+    
+  },
+
+  switchText: {
+    color: '#FFF',
+    fontSize: 16,
+    textAlign: 'center',
+    textTransform:'uppercase',
+    paddingHorizontal: 10
+  },
 });
 
 export default App;
