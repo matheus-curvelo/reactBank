@@ -8,8 +8,7 @@ import {
 } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
-
-// import { Slider } from 'react-native-community/slider';
+import Slider from '@react-native-community/slider';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class App extends Component {
       gender: '',
       genders: [{key: 1, genero: 'Homem'}, {key: 2, genero: 'Mulher'}],
 
-      sliderValue: '50'
+      estado: 30,
      }
 
      this.cadastrar = this.cadastrar.bind(this)
@@ -83,10 +82,15 @@ class App extends Component {
             </Picker>
           </View>
 
-          {/* <View>
-            <Slider value={this.state.sliderValue} />
-          </View> */}
-         
+          <View style={styles.sliderArea}>
+            <Slider
+            minimumValue={300}
+            maximumValue={5000}
+            value={this.state.estado}
+            onValueChange={(valor) => this.setState({estado: valor})}
+            />
+            <Text style={styles.sliderText} > {this.state.estado.toFixed(0)} </Text>
+          </View>
 
           {/*<Text>Limite</Text>
           <Text>Estudante</Text> */}
@@ -163,6 +167,16 @@ const styles = StyleSheet.create({
 
   pickerItem: {
     backgroundColor: 'white',
+  },
+
+  sliderArea: {
+    marginVertical: 15
+  },
+
+  sliderText: {
+    color: '#FFF',
+    fontSize: 20,
+    textAlign: 'center'
   }
 });
 
