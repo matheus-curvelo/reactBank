@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-// import { Picker } from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 
 // import { Slider } from 'react-native-community/slider';
 
@@ -61,9 +61,9 @@ class App extends Component {
 
   render() { 
 
-    // let generoItem = this.state.genders.map ( (v,k) => {
-    //   return <Picker.Item key={k} value={k} label={v.genero} />
-    // })
+    let generoItem = this.state.genders.map ( (v,k) => {
+      return <Picker.Item key={k} value={k} label={v.genero} />
+    })
 
     return ( 
       <View style={styles.container}>
@@ -77,11 +77,11 @@ class App extends Component {
 
           <TextInput style={styles.input} placeholder='Digite sua idade' keyboardType='numeric' onChangeText={ (age) => this.setState({inputAge: age}) } />
 
-          {/* <View style={styles.pickerArea}>
+          <View style={styles.pickerArea}>
             <Picker style={styles.pickerItem} placeholder='Sexo' selectedValue={this.state.gender} onValueChange={ (itemValue, itemIndex) => this.setState({gender: itemIndex}) }>
               {generoItem}
             </Picker>
-          </View> */}
+          </View>
 
           {/* <View>
             <Slider value={this.state.sliderValue} />
@@ -97,7 +97,6 @@ class App extends Component {
 
           <Text>{this.state.name}</Text>
           <Text>{this.state.age}</Text>
-          <Text>{this.state.gender}</Text>
         </View>
         
       </View>
