@@ -14,57 +14,87 @@ import Slider from '@react-native-community/slider';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      inputName: 'Matheus', name: '',
-      inputAge: '27', age: '',
-      gender: '',
-      genders: [{key: 1, genero: 'Homem'}, {key: 2, genero: 'Mulher'}],
-      estado: 30,
-      statusEstudante: true
-     }
+    this.state = {
+      inputName: '',
+      inputAge: '',
 
-     this.cadastrar = this.cadastrar.bind(this)
+      gender: '',
+      sexo: '',
+      genders: [{ key: 1, genero: 'Masculino' }, { key: 2, genero: 'Feminino' }],
+
+      estado: 300,
+      estudante: true,
+      statusEstudante: '',
+
+    }
+
+    this.cadastrar = this.cadastrar.bind(this)
 
   }
 
   cadastrar() {
 
-    if (this.state.inputName ==='' && this.state.inputAge ==='') {
+    this.converter
+
+    if (this.state.inputName === '' && this.state.inputAge === '') {
       alert('Preencha todos os dados')
       return
     }
-    
-    if(this.state.inputName === '') {
+
+    if (this.state.inputName === '') {
       alert('Preencha seu nome')
       return
-    }  
+    }
 
-    if (this.state.inputAge ==='') {
+    if (this.state.inputAge === '') {
       alert('Preencha sua idade')
       return
     }
-    
+
     else {
-      alert(
-        'Funciona !'
+
+      {
+        if (this.state.gender === 0) {
+          this.setState({ sexo: 'Masculino' })
+
+        } if (this.state.gender === 1) {
+          this.setState({ sexo: 'Feminino' })
+        }
+      }
+
+      {
+        if (this.state.estudante === true) {
+          this.setState({ statusEstudante: 'Sim' })
+
+        } if (this.state.estudante === false) {
+          this.setState({ statusEstudante: 'Não' })
+        }
+      }
+
+
+
+      return (
+        alert(
+
+          'Nome: ' + this.state.inputName + ' \nIdade: ' + this.state.inputAge + '\nSexo: ' + this.state.sexo + '\nLimite: ' + this.state.estado.toFixed(0) + ' Reais' + '\nEstudante: ' + this.state.statusEstudante
+
+        )
       )
 
-      this.setState({name: 'Seu nome é: ' + this.state.inputName })
-      this.setState({age: 'Você tem: ' + this.state.inputAge + ' anos'})
-      
-      this.setState({gender: 'Você é: ' + this.state.gender })
+
+
 
     }
-    
+
   }
 
-  render() { 
+  render() {
 
-    let generoItem = this.state.genders.map ( (v,k) => {
+    let generoItem = this.state.genders.map((v, k) => {
       return <Picker.Item key={k} value={k} label={v.genero} />
     })
 
-    return ( 
+    return (
       <View style={styles.container}>
 
         <View style={styles.titleArea}>
@@ -72,30 +102,30 @@ class App extends Component {
         </View>
 
         <View style={styles.contentArea}>
-          <TextInput style={styles.input} placeholder='Digite seu nome' onChangeText={ (name) => this.setState({inputName: name}) } />
+          <TextInput style={styles.input} placeholder='Digite seu nome' onChangeText={(name) => this.setState({ inputName: name })} />
 
-          <TextInput style={styles.input} placeholder='Digite sua idade' keyboardType='numeric' onChangeText={ (age) => this.setState({inputAge: age}) } />
+          <TextInput style={styles.input} placeholder='Digite sua idade' keyboardType='numeric' onChangeText={(age) => this.setState({ inputAge: age })} />
 
           <View style={styles.pickerArea}>
-            <Picker style={styles.pickerItem} placeholder='Sexo' selectedValue={this.state.gender} onValueChange={ (itemValue, itemIndex) => this.setState({gender: itemIndex}) }>
+            <Picker style={styles.pickerItem} selectedValue={this.state.gender} onValueChange={(itemValue, itemIndex) => this.setState({ gender: itemValue })}>
               {generoItem}
             </Picker>
           </View>
 
           <View style={styles.sliderArea}>
             <Slider
-            minimumValue={300}
-            maximumValue={5000}
-            value={this.state.estado}
-            onValueChange={(valor) => this.setState({estado: valor})}
+              minimumValue={300}
+              maximumValue={5000}
+              value={this.state.estado}
+              onValueChange={(valor) => this.setState({ estado: valor })}
             />
             <Text style={styles.sliderText} > {this.state.estado.toFixed(0)} </Text>
           </View>
 
           <View style={styles.switchArea}>
             <Switch
-            value={this.state.statusEstudante}
-            onValueChange={(valorSwitch) => this.setState({statusEstudante: valorSwitch})}
+              value={this.state.estudante}
+              onValueChange={(valorSwitch) => this.setState({ estudante: valorSwitch })}
             />
             <Text style={styles.switchText}>
               Estudante
@@ -106,15 +136,14 @@ class App extends Component {
             <Text style={styles.buttonText} >Cadastrar</Text>
           </TouchableOpacity>
 
-          <Text>{this.state.name}</Text>
           <Text>{this.state.age}</Text>
         </View>
-        
+
       </View>
-     );
+    );
   }
 }
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -122,18 +151,18 @@ const styles = StyleSheet.create({
   },
 
   titleArea: {
-    alignItems: 'center' ,
-    justifyContent: 'center' ,
+    alignItems: 'center',
+    justifyContent: 'center',
     margin: 48
   },
 
   titleText: {
     fontSize: 36,
-    color: '#F2F200' ,
+    color: '#F2F200',
     fontWeight: 'bold',
     backgroundColor: '#003091',
     paddingHorizontal: 12,
-    paddingVertical: 32 ,
+    paddingVertical: 32,
     borderRadius: 16
   },
 
@@ -166,9 +195,9 @@ const styles = StyleSheet.create({
 
   pickerArea: {
     marginVertical: 5,
-    borderRadius: 10, 
-    borderWidth: 1, 
-    borderColor: '#bdc3c7', 
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#bdc3c7',
     overflow: 'hidden',
   },
 
@@ -187,16 +216,16 @@ const styles = StyleSheet.create({
   },
 
   switchArea: {
-    alignItems:'center',
-    flexDirection:'row'
-    
+    alignItems: 'center',
+    flexDirection: 'row'
+
   },
 
   switchText: {
     color: '#FFF',
     fontSize: 16,
     textAlign: 'center',
-    textTransform:'uppercase',
+    textTransform: 'uppercase',
     paddingHorizontal: 10
   },
 });
